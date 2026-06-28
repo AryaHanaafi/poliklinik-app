@@ -28,12 +28,14 @@
                     <select id="select-obat" class="select select-bordered w-full rounded-lg border-2 px-4">
                         <option value="">-- Pilih Obat --</option>
                         @foreach ($obats as $obat)
-                            <option value="{{ $obat->id }}"
-                                data-nama="{{ $obat->nama_obat }}"
-                                data-harga="{{ $obat->harga }}">
-                                {{ $obat->nama_obat }} - Rp{{ number_format($obat->harga) }}
-                            </option>
-                        @endforeach
+                        <option value="{{ $obat->id }}"
+                            data-nama="{{ $obat->nama_obat }}"
+                            data-harga="{{ $obat->harga }}"
+                            {{ $obat->stok < 1 ? 'disabled' : '' }}>
+                            {{ $obat->nama_obat }} - Rp{{ number_format($obat->harga) }} 
+                            {{ $obat->stok < 1 ? '(STOK HABIS)' : '(Sisa Stok: ' . $obat->stok . ')' }}
+                        </option>
+                    @endforeach
                     </select>
                 </div>
 

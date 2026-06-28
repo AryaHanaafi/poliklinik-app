@@ -28,6 +28,7 @@
                             <th class="px-6 py-4">Nama Obat</th>
                             <th class="px-6 py-4">Kemasan</th>
                             <th class="px-6 py-4">Harga</th>
+                            <th class="px-6 py-4">Stok</th>
                             <th class="px-6 py-4 text-right">Aksi</th>
                         </tr>
                     </thead>
@@ -50,6 +51,21 @@
 
                             <td class="px-6 py-4 font-semibold text-slate-800">
                                 Rp {{ number_format($obat->harga, 0, ',', '.') }}
+                            </td>
+
+                            {{-- Blok Kolom Baru: Indikator Stok Bersyarat --}}
+                            <td class="px-6 py-4">
+                                @if($obat->stok == 0)
+                                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-600 border border-red-200">
+                                        <i class="fas fa-times-circle"></i> Habis
+                                    </span>
+                                @elseif($obat->stok <= 10)
+                                    <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-600 border border-amber-200">
+                                        <i class="fas fa-exclamation-triangle"></i> Sisa {{ $obat->stok }}
+                                    </span>
+                                @else
+                                    <span class="font-semibold text-slate-700">{{ $obat->stok }}</span>
+                                @endif
                             </td>
 
                             <td class="px-6 py-4 text-right">
@@ -90,6 +106,22 @@
                                 Belum ada data obat
                             </td>
                         </tr>
+
+                        <td class="px-6 py-4">
+
+                        @if($obat->stok == 0)
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                                <i class="fas fa-times-circle"></i> Habis
+                            </span>
+                        @elseif($obat->stok <= 10)
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                                <i class="fas fa-exclamation-triangle"></i> Sisa {{ $obat->stok }}
+                            </span>
+                        @else
+                            <span class="font-semibold text-slate-700">{{ $obat->stok }}</span>
+                        @endif
+                    </td>
+
                         @endforelse
                     </tbody>
 

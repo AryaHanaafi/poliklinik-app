@@ -24,12 +24,14 @@ class ObatController extends Controller
         $request->validate([
             'nama_obat' => 'required|string',
             'kemasan' => 'required|string',
+            'stok' => 'required|integer|min:0',
             'harga' => 'required|integer',
         ]);
 
         Obat::create([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
+            'stok' => $request->stok,
             'harga' => $request->harga
         ]);
 
@@ -48,16 +50,21 @@ class ObatController extends Controller
 
     public function update(Request $request, string $id)
     {
+        // 1. Tambahkan validasi untuk stok
         $request->validate([
             'nama_obat' => 'required|string',
             'kemasan' => 'nullable|string',
+            'stok' => 'required|integer|min:0', // <-- Pastikan ini ada
             'harga' => 'required|integer',
         ]);
 
         $obat = Obat::findOrFail($id);
+
+        // 2. Masukkan field stok agar ikut diperbarui di database
         $obat->update([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
+            'stok' => $request->stok, // <-- Pastikan ini ada
             'harga' => $request->harga
         ]);
 
@@ -65,7 +72,6 @@ class ObatController extends Controller
             ->with('message', 'Data Obat berhasil di edit')
             ->with('type', 'success');
     }
-
     public function destroy(string $id)
     {
         $obat = Obat::findOrFail($id);

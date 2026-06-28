@@ -35,25 +35,36 @@ class PeriksaPasienController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'id_daftar_poli' => 'required',
             'obat_json' => 'required',
             'catatan' => 'nullable|string',
-            'biaya_periksa' => 'required|integer',
+            'biaya_periksa' => 'required|numeric',
         ]);
 
-        $obatIds = json_decode($request->obat_json, true);
+        $obatIds = json_decode($request->input('obat_json'), true);
 
-        $periksa = Periksa::create([
-            'id_daftar_poli' => $request->id_daftar_poli,
+        // Menggunakan query()->create() agar linter VS Code tidak protes
+        $periksa = Periksa::query()->create([
+            'id_daftar_poli' => $request->input('id_daftar_poli'),
             'tgl_periksa' => now(),
-            'catatan' => $request->catatan,
-            'biaya_periksa' => $request->biaya_periksa + 150000,
+            'catatan' => $request->input('catatan'),
+            'biaya_periksa' => (int) $request->input('biaya_periksa') + 150000,
         ]);
 
-        foreach ($obatIds as $idObat) {
-            DetailPeriksa::create([
-                'id_periksa' => $periksa->id,
-                'id_obat' => $idObat,
-            ]);
+        if (is_array($obatIds)) {
+            foreach ($obatIds as $idObat) {
+                // 1. Catat riwayat obat ke detail periksa
+                DetailPeriksa::query()->create([
+                    'id_periksa' => $periksa->id,
+                    'id_obat' => $idObat,
+                ]);
+
+                // 2. Kurangi stok obat (Teknik Builder anti-merah Intelephense)
+                Obat::query()
+                    ->where('id', $idObat)
+                    ->where('stok', '>', 0)
+                    ->decrement('stok', 1);
+            }
         }
 
         return redirect()->route('periksa-pasien.index')->with('success', 'Data periksa berhasil disimpan.');
