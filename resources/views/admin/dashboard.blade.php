@@ -303,31 +303,19 @@
     </h3>
     <div class="flex flex-wrap gap-3 ml-3">
         <a href="{{ route('obat.index') }}"
-           class="flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5"
-           style="background: #f0f4ff; border-color: #c7d2f0; color: #2d4499;"
-           onmouseover="this.style.background='#1e2d6b';this.style.color='white';"
-           onmouseout="this.style.background='#f0f4ff';this.style.color='#2d4499';">
+           class="flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 bg-[#f0f4ff] border-[#c7d2f0] text-[#2d4499] hover:bg-[#1e2d6b] hover:text-white">
             <i class="fas fa-boxes"></i> Kelola Obat
         </a>
         <a href="{{ route('dokter.index') }}"
-           class="flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5"
-           style="background: #f0f4ff; border-color: #c7d2f0; color: #2d4499;"
-           onmouseover="this.style.background='#1e2d6b';this.style.color='white';"
-           onmouseout="this.style.background='#f0f4ff';this.style.color='#2d4499';">
+           class="flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 bg-[#f0f4ff] border-[#c7d2f0] text-[#2d4499] hover:bg-[#1e2d6b] hover:text-white">
             <i class="fas fa-user-md"></i> Kelola Dokter
         </a>
         <a href="{{ route('polis.index') }}"
-           class="flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5"
-           style="background: #f0f4ff; border-color: #c7d2f0; color: #2d4499;"
-           onmouseover="this.style.background='#1e2d6b';this.style.color='white';"
-           onmouseout="this.style.background='#f0f4ff';this.style.color='#2d4499';">
+           class="flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 bg-[#f0f4ff] border-[#c7d2f0] text-[#2d4499] hover:bg-[#1e2d6b] hover:text-white">
             <i class="fas fa-hospital"></i> Kelola Poli
         </a>
         <a href="{{ route('pasien.index') }}"
-           class="flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5"
-           style="background: #f0f4ff; border-color: #c7d2f0; color: #2d4499;"
-           onmouseover="this.style.background='#1e2d6b';this.style.color='white';"
-           onmouseout="this.style.background='#f0f4ff';this.style.color='#2d4499';">
+           class="flex items-center gap-2 px-5 py-3 rounded-xl border text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 bg-[#f0f4ff] border-[#c7d2f0] text-[#2d4499] hover:bg-[#1e2d6b] hover:text-white">
             <i class="fas fa-bed-pulse"></i> Kelola Pasien
         </a>
     </div>

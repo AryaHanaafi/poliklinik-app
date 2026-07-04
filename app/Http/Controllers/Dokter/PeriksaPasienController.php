@@ -43,7 +43,7 @@ class PeriksaPasienController extends Controller
 
         $obatIds = json_decode($request->input('obat_json'), true);
 
-        // Menggunakan query()->create() agar linter VS Code tidak protes
+        // Simpan data pemeriksaan utama
         $periksa = Periksa::query()->create([
             'id_daftar_poli' => $request->input('id_daftar_poli'),
             'tgl_periksa' => now(),
@@ -53,13 +53,14 @@ class PeriksaPasienController extends Controller
 
         if (is_array($obatIds)) {
             foreach ($obatIds as $idObat) {
-                // 1. Catat riwayat obat ke detail periksa
+                // Catat riwayat obat yang diresepkan
                 DetailPeriksa::query()->create([
                     'id_periksa' => $periksa->id,
                     'id_obat' => $idObat,
                 ]);
 
-                // 2. Kurangi stok obat (Teknik Builder anti-merah Intelephense)
+                // Kurangi stok obat secara otomatis
+                // Kondisi stok > 0 untuk memastikan stok tidak minus
                 Obat::query()
                     ->where('id', $idObat)
                     ->where('stok', '>', 0)

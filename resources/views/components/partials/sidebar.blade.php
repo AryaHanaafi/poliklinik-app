@@ -44,6 +44,9 @@
             <a href="{{ route('obat.index') }}" class="{{ $baseLink }} {{ request()->routeIs('obat.*') ? $active : $inactive }}">
                 <i class="fas fa-pills w-4 text-center"></i> Manajemen Obat
             </a> 
+            <a href="{{ route('admin.pembayaran.index') }}" class="{{ $baseLink }} {{ request()->routeIs('admin.pembayaran.*') ? $active : $inactive }}">
+                <i class="fas fa-cash-register w-4 text-center"></i> Pembayaran (Kasir)
+            </a> 
         </div>
         @endif
 
@@ -56,6 +59,9 @@
             </a>
             <a href="{{ route('pasien.daftar') }}" class="{{ $baseLink }} {{ request()->routeIs('pasien.daftar*') ? $active : $inactive }}">
                 <i class="fas fa-clipboard-list w-4 text-center"></i> Pendaftaran Periksa
+            </a>
+            <a href="{{ route('pasien.pembayaran.index') }}" class="{{ $baseLink }} {{ request()->routeIs('pasien.pembayaran.*') ? $active : $inactive }}">
+                <i class="fas fa-money-bill-wave w-4 text-center"></i> Tagihan & Pembayaran
             </a>
         </div>
         @endif

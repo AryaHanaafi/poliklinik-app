@@ -5,12 +5,12 @@ use App\Http\Controllers\Admin\PoliController;
 use App\Http\Controllers\Admin\DokterController;
 use App\Http\Controllers\Admin\PasienController;
 use App\Http\Controllers\Admin\ObatController;
+use App\Http\Controllers\Admin\PembayaranController as AdminPembayaranController;
 use App\Http\Controllers\Dokter\JadwalPeriksaController;
 use App\Http\Controllers\Pasien\PoliController as PasienPoliController;
+use App\Http\Controllers\Pasien\PembayaranController as PasienPembayaranController;
 use App\Http\Controllers\Dokter\PeriksaPasienController;
 use App\Http\Controllers\Dokter\RiwayatPasienController;
-
-// Import Facades & Models Sesuai Aslinya
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -38,13 +38,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
         $total_poli   = Poli::query()->count('id');
         $total_obat   = Obat::query()->count('id');
 
-        // Pasien terbaru
         $pasien_terbaru = User::where('role', 'pasien')
             ->latest()
             ->take(5)
             ->get();
 
-        // Dokter terbaru
         $dokter_terbaru = User::where('role', 'dokter')
             ->with('poli')
             ->latest()
@@ -71,6 +69,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::resource('dokter', DokterController::class);
     Route::resource('pasien', PasienController::class);
     Route::resource('obat', ObatController::class);
+
+    Route::get('/pembayaran', [AdminPembayaranController::class, 'index'])->name('admin.pembayaran.index');
+    Route::post('/pembayaran/{id}/lunas', [AdminPembayaranController::class, 'lunas'])->name('admin.pembayaran.lunas');
 });
 
 // --- DASHBOARD DOKTER ---
@@ -79,13 +80,11 @@ Route::middleware(['auth', 'role:dokter'])->prefix('dokter')->group(function () 
         $dokterId = Auth::id();
         $dokter   = Auth::user()->load('poli');
 
-        // Pasien menunggu diperiksa (belum ada record di tabel periksa)
         $pasien_hari_ini = DaftarPoli::query()
             ->whereHas('jadwalPeriksa', function ($q) use ($dokterId) {
                 $q->where('id_dokter', $dokterId);
             })->doesntHave('periksas')->count('id');
 
-        // Total pasien yang sudah selesai diperiksa
         $total_diperiksa = Periksa::query()
             ->whereHas('daftarPoli.jadwalPeriksa', function ($q) use ($dokterId) {
                 $q->where('id_dokter', $dokterId);
@@ -160,4 +159,6 @@ Route::middleware(['auth', 'role:pasien'])->prefix('pasien')->group(function () 
 
     Route::get('/daftar', [PasienPoliController::class, 'get'])->name('pasien.daftar');
     Route::post('/daftar', [PasienPoliController::class, 'submit'])->name('pasien.daftar.submit');
+
+    Route::get('/pembayaran', [PasienPembayaranController::class, 'index'])->name('pasien.pembayaran.index');
 });

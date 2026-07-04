@@ -22,6 +22,7 @@
                             <th class="px-6 py-4">Keluhan</th>
                             <th class="px-6 py-4">Tanggal Periksa</th>
                             <th class="px-6 py-4">Biaya</th>
+                            <th class="px-6 py-4">Status</th>
                             <th class="px-6 py-4 text-right">Aksi</th>
                         </tr>
                     </thead>
@@ -49,6 +50,18 @@
 
                             <td class="px-6 py-4 text-slate-500">
                                 Rp {{ number_format($riwayat->biaya_periksa, 0, ',', '.') }}
+                            </td>
+
+                            <td class="px-6 py-4">
+                                @if($riwayat->status_bayar == 'Belum Lunas')
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                        Belum Lunas
+                                    </span>
+                                @else
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-800">
+                                        Lunas
+                                    </span>
+                                @endif
                             </td>
 
                             <td class="px-6 py-4 text-right">

@@ -214,24 +214,15 @@
     </h3>
     <div class="flex flex-wrap gap-3 ml-3">
         <a href="{{ route('jadwal-periksa.index') }}"
-           class="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all hover:-translate-y-0.5"
-           style="background: #f0f4ff; border-color: #c7d2f0; color: #2d4499;"
-           onmouseover="this.style.background='#1e2d6b';this.style.color='white';"
-           onmouseout="this.style.background='#f0f4ff';this.style.color='#2d4499';">
+           class="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all hover:-translate-y-0.5 bg-[#f0f4ff] border-[#c7d2f0] text-[#2d4499] hover:bg-[#1e2d6b] hover:text-white">
             <i class="fas fa-calendar-plus"></i> Atur Jadwal
         </a>
         <a href="{{ route('periksa-pasien.index') }}"
-           class="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all hover:-translate-y-0.5"
-           style="background: #f0f4ff; border-color: #c7d2f0; color: #2d4499;"
-           onmouseover="this.style.background='#1e2d6b';this.style.color='white';"
-           onmouseout="this.style.background='#f0f4ff';this.style.color='#2d4499';">
+           class="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all hover:-translate-y-0.5 bg-[#f0f4ff] border-[#c7d2f0] text-[#2d4499] hover:bg-[#1e2d6b] hover:text-white">
             <i class="fas fa-notes-medical"></i> Periksa Pasien
         </a>
         <a href="{{ route('riwayat-pasien.index') }}"
-           class="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all hover:-translate-y-0.5"
-           style="background: #f0f4ff; border-color: #c7d2f0; color: #2d4499;"
-           onmouseover="this.style.background='#1e2d6b';this.style.color='white';"
-           onmouseout="this.style.background='#f0f4ff';this.style.color='#2d4499';">
+           class="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all hover:-translate-y-0.5 bg-[#f0f4ff] border-[#c7d2f0] text-[#2d4499] hover:bg-[#1e2d6b] hover:text-white">
             <i class="fas fa-history"></i> Riwayat Pasien
         </a>
     </div>

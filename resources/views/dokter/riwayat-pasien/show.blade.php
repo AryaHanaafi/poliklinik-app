@@ -49,6 +49,16 @@ title="Detail Riwayat Pasien">
                         <span class="text-slate-800">{{ \Carbon\Carbon::parse($periksa->tgl_periksa)->format('d/m/Y
                             H:i') }}</span>
                     </div>
+                    <div class="flex gap-2">
+                        <span class="w-36 text-slate-500 font-medium">Status Pembayaran</span>
+                        <span class="text-slate-800">
+                            @if($periksa->status_bayar == 'Belum Lunas')
+                                <span class="badge-pill bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-xs font-semibold">Belum Lunas</span>
+                            @else
+                                <span class="badge-pill bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs font-semibold">Lunas</span>
+                            @endif
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -21,6 +21,7 @@ class ObatController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi input, pastikan stok minimal 0 agar tidak minus
         $request->validate([
             'nama_obat' => 'required|string',
             'kemasan' => 'required|string',
@@ -50,21 +51,21 @@ class ObatController extends Controller
 
     public function update(Request $request, string $id)
     {
-        // 1. Tambahkan validasi untuk stok
+        // Validasi input update, pastikan stok minimal 0 agar tidak minus
         $request->validate([
             'nama_obat' => 'required|string',
             'kemasan' => 'nullable|string',
-            'stok' => 'required|integer|min:0', // <-- Pastikan ini ada
+            'stok' => 'required|integer|min:0',
             'harga' => 'required|integer',
         ]);
 
         $obat = Obat::findOrFail($id);
 
-        // 2. Masukkan field stok agar ikut diperbarui di database
+        // Update data obat beserta perubahan stok dari input admin
         $obat->update([
             'nama_obat' => $request->nama_obat,
             'kemasan' => $request->kemasan,
-            'stok' => $request->stok, // <-- Pastikan ini ada
+            'stok' => $request->stok,
             'harga' => $request->harga
         ]);
 
